@@ -8,13 +8,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "shrine-pink": "url(../assets/img/bg-base.png)",
+        "base-miko": "url(../assets/img/bg-miko.png)",
+        "shogun-event": "url(../assets/img/bg-shogun.jpg)",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
   },
-  plugins: [],
+  plugins: [require('daisyui')],
 };
 export default config;

@@ -3,12 +3,12 @@ import { ChatSession, GoogleGenerativeAI } from "@google/generative-ai";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { DynamicImageSelector } from "./DynamicImageSelector";
 
-interface ConfigModalProps {
+interface ModalConfigProps {
    showModal: boolean;
    setShowModal: Dispatch<SetStateAction<boolean>>;
    setChat: Dispatch<SetStateAction<ChatSession | undefined>>;
 }
-export const ConfigModal = ({ showModal, setShowModal, setChat }: ConfigModalProps) => {
+export const ModalConfig = ({ showModal, setShowModal, setChat }: ModalConfigProps) => {
    const [mikoState, setMikoState] = useState<boolean>(false);
    const [showTab, setShowTab] = useState<1 | 2 | 3>(1);
    const apiKey = process.env.NEXT_PUBLIC_API_KEY;

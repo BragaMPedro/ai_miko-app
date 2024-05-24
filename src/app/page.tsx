@@ -57,7 +57,7 @@ export default function Home() {
 
    return (
       <>
-         {showModal && <ConfigModal setShowModal={setShowModal} setChat={setChat} />}
+         <ConfigModal showModal={showModal} setShowModal={setShowModal} setChat={setChat} />
          <main className="flex min-h-screen max-h-screen bg-shrine-pink bg-cover bg-opacity-50 bg-no-repeat bg-neutral-800 flex-col items-center w-full px-6 py-4 sm:px-10 sm:py-4">
             <ChatHeader setShowModal={setShowModal} />
             <ChatMessageList typing={typing} messages={chatHistory} />

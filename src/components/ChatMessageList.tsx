@@ -1,18 +1,17 @@
 "use client";
-import miko from "@/assets/instructions/miko.json";
-import { Content } from "@google/generative-ai";
+import { ChatHistoryProps } from "@/types/chat";
 import { useEffect } from "react";
 import Markdown from "react-markdown";
 
 interface ChatMessageListProps {
-   messages: Content[];
+   chatHistory: ChatHistoryProps[];
    typing: boolean;
 }
 
-export const ChatMessageList = ({ messages, typing }: ChatMessageListProps) => {
+export const ChatMessageList = ({ chatHistory, typing }: ChatMessageListProps) => {
    useEffect(() => {
       autoScrollToBottom();
-   }, [messages.length]);
+   }, [chatHistory.length]);
 
    function autoScrollToBottom() {
       const anchor = document.getElementById("bottom-anchor");
@@ -25,21 +24,28 @@ export const ChatMessageList = ({ messages, typing }: ChatMessageListProps) => {
       <section
          id="chat-history"
          className="container flex-grow mb-10 overflow-y-auto p-4 space-y-8 max-w-5xl max-h-screen scroll-smooth">
-         <div className="flex items-start w-full justify-center text-center">
-            <h4 className="max-w-lg">{miko.model.features[10]}</h4>
+         <div className="flex items-start w-full justify-center max-w-lg  text-center">
+            <h4 className="text-lg font-bold text-gray-900 capitalize">Um titulo aqui</h4>
          </div>
-         {messages.map((message, index) => (
-            <div key={index} className={`chat  ${message.role === "user" ? "chat-end" : "chat-start"}`}>
-               <div onClick={() => console.log(JSON.parse(message.parts[0].text!))} className="chat-header text-black">
-                  {message.role === "user" ? "Traveller" : "Yae Miko"}
-               </div>
-               <Markdown
-                  className={`chat-bubble text-white ${
-                     message.role === "user" ? "bg-gray-400 rounded-tr-none" : "bg-purple-400 rounded-tl-none"
+         {chatHistory.map(({ role, content }, index) => (
+            <div key={index} className={`chat min-w-2xl ${role === "user" ? "chat-end" : "chat-start"}`}>
+               <div className="chat-header text-black">{role === "user" ? "Traveller" : "Yae Miko"}</div>
+               <div
+                  id={"chat-bubble-" + index}
+                  className={`chat-bubble max-w-[70%] text-white py-4 space-y-2 ${
+                     role === "user" ? "bg-gray-400 rounded-tr-none" : "bg-purple-400 rounded-tl-none"
                   }`}>
-                  {JSON.parse(message.parts[0].text!).response}
-               </Markdown>
-               <small>{JSON.parse(message.parts[0].text!).internal_monologue}</small>
+                  <Markdown>{content.text}</Markdown>
+                  {role === "model" && (
+                     <div className="collapse collapse-arrow p-[0.02rem] bg-purple-500/35">
+                        <input type="checkbox" name="inner_thoughts" />
+                        <div className="collapse-title flex items-center px-4 text-sm">spoiler</div>
+                        <div className="collapse-content">
+                           <Markdown>{"_" + content.inner_thoughts?.trimEnd() + "_"}</Markdown>
+                        </div>
+                     </div>
+                  )}
+               </div>
             </div>
          ))}
          {typing && (
@@ -49,7 +55,7 @@ export const ChatMessageList = ({ messages, typing }: ChatMessageListProps) => {
                </div>
             </div>
          )}
-         <div id="bottom-anchor" />
+         <div id="bottom-anchor" className="mt-6" />
       </section>
    );
 };

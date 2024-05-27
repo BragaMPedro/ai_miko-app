@@ -2,10 +2,11 @@ import { ChangeEvent, Dispatch, FormEvent, SetStateAction } from 'react';
 interface ChatInputProps{
     message: string,
     setMessage: Dispatch<SetStateAction<string>>,
+    loading: boolean
     submit: ()=>void
 }
 
-export const ChatInput = ({message, setMessage, submit}: ChatInputProps) => {
+export const ChatInput = ({message, setMessage, loading,  submit}: ChatInputProps) => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
@@ -19,7 +20,7 @@ export const ChatInput = ({message, setMessage, submit}: ChatInputProps) => {
   };
 
   return (
-    <form className="fixed bottom-0 flex items-center space-x-4 w-full max-w-5xl p-4" onSubmit={handleSubmit}>
+    <form className="sticky bottom-0 left-0 flex items-center space-x-4 w-full max-w-5xl p-4" onSubmit={handleSubmit}>
       <input
         type="text"
         value={message}
@@ -27,7 +28,7 @@ export const ChatInput = ({message, setMessage, submit}: ChatInputProps) => {
         placeholder="Digite sua mensagem..."
         className="flex-grow p-2 rounded-md text-gray-700 border border-gray-300"
       />
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
+      <button type="submit" disabled={message === "" || loading} className="bg-blue-500 text-white px-4 py-2 rounded-md">
         Enviar
       </button>
     </form>

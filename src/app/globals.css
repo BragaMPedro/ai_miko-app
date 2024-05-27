@@ -27,9 +27,15 @@ body {
    }
 }
 
-/* width */
+/* width modal */
 ::-webkit-scrollbar {
-   width: 3rem;
+   width: 0;
+   scrollbar-gutter: unset;
+}
+
+/* width */
+#chat-history::-webkit-scrollbar {
+   width: 1rem;
 }
 
 /* Track */
@@ -40,12 +46,13 @@ body {
 /* Handle */
 ::-webkit-scrollbar-thumb {
    background-color: #532f7790;
-   /* background-blend-mode: overlay; */
+   background-blend-mode: overlay;
    border-radius: 1rem;
+   box-shadow: 0 0 6px #1b0d2964;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #7c5a9fb4;
-  transition-delay: 700;
+   background-color: #7c5a9fb4;
+   transition-delay: 700;
 }

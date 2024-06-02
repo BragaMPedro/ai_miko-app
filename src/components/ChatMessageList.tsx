@@ -23,13 +23,10 @@ export const ChatMessageList = ({ chatHistory, typing }: ChatMessageListProps) =
    return (
       <section
          id="chat-history"
-         className="container flex-grow mb-10 overflow-y-auto p-4 space-y-8 max-w-5xl max-h-screen scroll-smooth">
-         <div className="flex items-start w-full justify-center max-w-lg  text-center">
-            <h4 className="text-lg font-bold text-gray-900 capitalize">Um titulo aqui</h4>
-         </div>
+         className="container flex-grow mb-10 p-4 space-y-8 max-w-5xl max-h-screen">
          {chatHistory.map(({ role, content }, index) => (
             <div key={index} className={`chat min-w-2xl ${role === "user" ? "chat-end" : "chat-start"}`}>
-               <div className="chat-header text-black">{role === "user" ? "Traveller" : "Yae Miko"}</div>
+               <div className="chat-header text-black">{role === "user" ? "Traveler" : "Yae Miko"}</div>
                <div
                   id={"chat-bubble-" + index}
                   className={`chat-bubble max-w-[70%] text-white py-4 space-y-2 ${

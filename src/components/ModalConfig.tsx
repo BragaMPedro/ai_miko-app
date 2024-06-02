@@ -5,14 +5,15 @@ interface ModalConfigProps {
    showModal: boolean;
    setShowModal: Dispatch<SetStateAction<boolean>>;
    setChat: Dispatch<SetStateAction<ChatSession | undefined>>;
+   model: GenerativeModel| undefined;
    setModel: Dispatch<SetStateAction<GenerativeModel | undefined>>;
 }
-export const ModalConfig = ({ showModal, setShowModal, setChat, setModel }: ModalConfigProps) => {
+export const ModalConfig = ({ showModal, setShowModal, setChat, model, setModel }: ModalConfigProps) => {
    let apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
    useEffect(() => {
       return () => {
-         console.log("modal desconstruído");
+         console.log("modal desconstruído")
       };
    }, []);
 
@@ -40,18 +41,25 @@ export const ModalConfig = ({ showModal, setShowModal, setChat, setModel }: Moda
          return;
       }
 
+      let accept;
+      if(model) {
+         accept = confirm("Atenção, completar essa ação  vai recomeçar sua Mikonversa.\nDeseja continuar?")
+      }
+
+      if(!accept){return}
+
       const genAI = new GoogleGenerativeAI(apiKey);
       const { generationConfig, safetySettings, systemInstruction } = Mikonfig({});
 
-      const model = genAI.getGenerativeModel({
+      const newModel = genAI.getGenerativeModel({
          model: "gemini-1.5-flash-latest",
          generationConfig: generationConfig,
          safetySettings: safetySettings,
          systemInstruction: systemInstruction,
       });
-      if (model) setModel(model);
+      if (newModel) setModel(newModel);
 
-      const chatStart = model.startChat({ history: [] });
+      const chatStart = newModel.startChat({ history: [] });
 
       setChat(chatStart);
       setShowModal(false);

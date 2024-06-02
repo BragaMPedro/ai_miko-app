@@ -1,6 +1,6 @@
 import { ChatConponentProps, ChatContentProps, ChatHistoryProps } from "@/types/chat";
 import { randomBytes } from "crypto";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChatHeader } from "./ChatHeader";
 import { ChatInput } from "./ChatInput";
 import { ChatMessageList } from "./ChatMessageList";
@@ -10,9 +10,18 @@ export const ChatComponent = ({ model, chat, setShowModal }: ChatConponentProps)
    const [message, setMessage] = useState("");
    const [chatHistory, setChatHistory] = useState<ChatHistoryProps[] | []>([]);
 
+useEffect(()=>{
+   limpaStates()
+},[model])
+
    function generateId() {
       const id = randomBytes(20).toString("hex");
       return id;
+   }
+
+   function limpaStates(){
+setChatHistory([]);
+setMessage("")
    }
 
    async function handleSubmit() {
@@ -81,7 +90,7 @@ export const ChatComponent = ({ model, chat, setShowModal }: ChatConponentProps)
    return (
       <section
          id="chat-section"
-         className="flex flex-col items-center w-full min-h-svh max-h-svh px-6 py-4 sm:px-10 sm:py-4">
+         className="flex flex-col items-center w-full overflow-y-auto scroll-smooth min-h-svh max-h-svh px-6 py-4 sm:px-10 sm:py-4">
          <ChatHeader setShowModal={setShowModal} />
          <ChatMessageList typing={typing} chatHistory={chatHistory} />
          <ChatInput message={message} setMessage={setMessage} loading={typing} submit={() => handleSubmit()} />

@@ -41,23 +41,19 @@ setMessage("")
       const tokens = await getTokenCount();
       console.log("tokenCount", tokens);
 
+      /**
+       * Envia mensagem
+       */
       try {
          const result = await chat.sendMessage(message);
          const response = result.response.text();
 
-         let resObject: ChatContentProps;
-
-         try {
-            resObject = JSON.parse(response);
-         } catch (error) {
-            console.error(error, response);
-            resObject = { text: response };
-         }
+         let resObject = validaJSON(response);
          console.table(resObject);
-
 
          const resState: ChatHistoryProps = { id: generateId(), role: "model", content: resObject };
          setChatHistory([...chatHistory, userMsg, resState]);
+
       } catch (error) {
          console.log(error);
          atualizaChatHistory(generateId(), "system", {
@@ -66,6 +62,19 @@ setMessage("")
       } finally {
          setTyping(false);
       }
+   };
+
+   async function validaJSON(res:string) {
+      let formattedRes;
+
+      try {
+         formattedRes = JSON.parse(res);
+      } catch (error) {
+         console.error(error, res);
+         formattedRes = { text: res.split("inner")[0] };
+      }
+
+      return formattedRes
    }
 
    function atualizaChatHistory(id: string, role: "user" | "model" | "system", content: ChatContentProps) {

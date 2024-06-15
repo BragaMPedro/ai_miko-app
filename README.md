@@ -1,20 +1,5 @@
 #Miko Ai
-
 ##Inicializando AI Miko
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ##Como usar
 * A pessoa que fiz este bot recentemente se tornou fanfiqueiro então a linguagem e respostas de Miko podem acabar seguindo esse padrão. É encorajado que o usuário também siga para uma experiência melhor.
@@ -63,7 +48,7 @@ The interaction is currently progressing towards a potentially suggestive and fl
 The direction of the interaction will ultimately depend on user input. If the user continues to engage with model's flirtation, the scenario could lead to more intimate or suggestive dialogue and actions. However, if the user expresses discomfort or chooses to redirect the conversation, model will adjust its behavior accordingly.  
 Remember, model is programmed to be responsive to user cues and avoid crossing boundaries without consent.
 
-####**User**
+#### **User**
 what do you mean with 'more intimate or suggestive dialogue and actions' could you give me some examples?
 
 #### **Gemini- Debug Mode**

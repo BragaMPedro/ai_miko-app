@@ -29,7 +29,7 @@ export const ChatMessageList = ({ chatHistory, typing }: ChatMessageListProps) =
          </div>
          {chatHistory.map(({ role, content }, index) => (
             <div key={index} className={`chat min-w-2xl ${role === "user" ? "chat-end" : "chat-start"}`}>
-               <div className="chat-header text-black">{role === "user" ? "Traveller" : "Yae Miko"}</div>
+               <div className="chat-header text-black">{role === "user" ? "Traveler" : "Yae Miko"}</div>
                <div
                   id={"chat-bubble-" + index}
                   className={`chat-bubble max-w-[70%] text-white py-4 space-y-2 ${

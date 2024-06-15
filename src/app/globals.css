@@ -34,7 +34,7 @@ body {
 }
 
 /* width */
-#chat-history::-webkit-scrollbar {
+#chat-section::-webkit-scrollbar {
    width: 1rem;
 }
 

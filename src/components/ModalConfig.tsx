@@ -5,9 +5,10 @@ interface ModalConfigProps {
    showModal: boolean;
    setShowModal: Dispatch<SetStateAction<boolean>>;
    setChat: Dispatch<SetStateAction<ChatSession | undefined>>;
+   model: GenerativeModel | undefined;
    setModel: Dispatch<SetStateAction<GenerativeModel | undefined>>;
 }
-export const ModalConfig = ({ showModal, setShowModal, setChat, setModel }: ModalConfigProps) => {
+export const ModalConfig = ({ showModal, setShowModal, setChat, model, setModel }: ModalConfigProps) => {
    let apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
    useEffect(() => {
@@ -34,26 +35,35 @@ export const ModalConfig = ({ showModal, setShowModal, setChat, setModel }: Moda
        * Inserir manualmente APIKey em caso de erro.
        */
       if (!apiKey) {
-         console.log("API check 1 -", apiKey);
+         console.log("API check 1 -", Boolean(apiKey));
          const accept = confirm("algo de errado com a ApiKey, você tem ela?");
          if (accept) apiKey = prompt("Por favor insira sua ApiKey:") as string | undefined;
          return;
       }
 
-      const genAI = new GoogleGenerativeAI(apiKey);
-      const { generationConfig, safetySettings, systemInstruction } = Mikonfig({});
+      let accept = false;
+      if (model) {
+         console.log("Modelo?", model);
 
-      const model = genAI.getGenerativeModel({
-         model: "gemini-1.5-flash-latest",
-         generationConfig: generationConfig,
-         safetySettings: safetySettings,
-         systemInstruction: systemInstruction,
-      });
-      if (model) setModel(model);
+         accept = confirm("Atenção, completar essa ação  vai recomeçar sua Mikonversa.\nDeseja continuar?");
+      }
 
-      const chatStart = model.startChat({ history: [] });
+      if ((accept && model) || (!accept && !model)) {
+         const genAI = new GoogleGenerativeAI(apiKey);
+         const { generationConfig, safetySettings, systemInstruction } = Mikonfig({});
 
-      setChat(chatStart);
+         const newModel = genAI.getGenerativeModel({
+            model: "gemini-1.5-flash-latest",
+            generationConfig: generationConfig,
+            safetySettings: safetySettings,
+            systemInstruction: systemInstruction,
+         });
+         if (newModel) setModel(newModel);
+
+         const chatStart = newModel.startChat({ history: [] });
+
+         setChat(chatStart);
+      }
       setShowModal(false);
    }
 
@@ -69,8 +79,9 @@ export const ModalConfig = ({ showModal, setShowModal, setChat, setModel }: Moda
             <p className="py-4">Click the button below to close</p>
             <div className="modal-action">
                <form method="dialog">
-                  {/* if there is a button, it will close the modal */}
-                  <button onClick={handleGenAi} className="btn">Close</button>
+                  <button onClick={handleGenAi} className="btn">
+                     Close
+                  </button>
                </form>
             </div>
          </div>

@@ -81,7 +81,7 @@ export const ChatComponent = ({ model, chat, setShowModal }: ChatConponentProps)
    return (
       <section
          id="chat-section"
-         className="flex flex-col items-center w-full min-h-svh max-h-svh px-6 py-4 sm:px-10 sm:py-4">
+         className="flex flex-col items-center w-full overflow-y-auto scroll-smooth min-h-svh max-h-svh px-6 py-4 sm:px-10  sm:py-4">
          <ChatHeader setShowModal={setShowModal} />
          <ChatMessageList typing={typing} chatHistory={chatHistory} />
          <ChatInput message={message} setMessage={setMessage} loading={typing} submit={() => handleSubmit()} />

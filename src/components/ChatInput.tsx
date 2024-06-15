@@ -7,8 +7,9 @@ interface ChatInputProps{
 }
 
 export const ChatInput = ({message, setMessage, loading,  submit}: ChatInputProps) => {
+  const disabled = message === "" || loading;
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
   };
 
@@ -20,15 +21,19 @@ export const ChatInput = ({message, setMessage, loading,  submit}: ChatInputProp
   };
 
   return (
-    <form className="sticky bottom-0 left-0 flex items-center space-x-4 w-full max-w-5xl p-4" onSubmit={handleSubmit}>
-      <input
-        type="text"
+    <form className="sticky bottom-0 left-0 flex items-center space-x-4 w-full max-w-5xl p-4" onSubmit={handleSubmit} >
+      <textarea
+        id='msg-input'
+        name='msg-input'
+        maxLength={500}
         value={message}
+        inputMode='text'
+        onKeyUp={(e)=>console.log(e)}
         onChange={handleChange}
         placeholder="Digite sua mensagem..."
-        className="flex-grow p-2 rounded-md text-gray-700 border border-gray-300"
+        className="flex-grow p-2 rounded-md text-white border border-gray-300"
       />
-      <button type="submit" disabled={message === "" || loading} className="bg-blue-500 text-white px-4 py-2 rounded-md">
+      <button type="submit" disabled={disabled} className={`${disabled && "btn-disabled"} btn btn-square btn-primary cursor-pointer text-white px-4 py-2 rounded-md hover:brightness-75 transition-all duration-200`}>
         Enviar
       </button>
     </form>

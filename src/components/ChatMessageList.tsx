@@ -23,7 +23,7 @@ export const ChatMessageList = ({ chatHistory, typing }: ChatMessageListProps) =
    return (
       <section
          id="chat-history"
-         className="container flex-grow mb-10 overflow-y-auto p-4 space-y-8 max-w-5xl max-h-screen scroll-smooth">
+         className="container flex-grow mb-10 p-4 space-y-8 max-w-5xl max-h-screen">
          <div className="flex items-start w-full justify-center max-w-lg  text-center">
             <h4 className="text-lg font-bold text-gray-900 capitalize">Um titulo aqui</h4>
          </div>

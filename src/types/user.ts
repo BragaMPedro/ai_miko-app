@@ -1,15 +1,12 @@
 export interface UserProps {
-        name?: string,
+        name: string,
         titles?: string[],
         gender?: string,
-        pronouns?: string,
-        height?: string,
-        species?: string,
-        language?: string,
-        sexuality?: string,
+        pronouns: string,
+        language: string,
         appearance?: string[],
         outfit?: string[],
-        features?: FeatureProps
+        inferrences?: InferenceProps[]
 }
 
-interface FeatureProps{userChoice?: string[], inferred?: string[]}
+interface InferenceProps{description: string, confidence:string}

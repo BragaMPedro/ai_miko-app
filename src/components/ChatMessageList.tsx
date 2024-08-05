@@ -9,6 +9,7 @@ interface ChatMessageListProps {
 }
 
 export const ChatMessageList = ({ chatHistory, typing }: ChatMessageListProps) => {
+   
    useEffect(() => {
       autoScrollToBottom();
    }, [chatHistory.length]);
@@ -23,7 +24,7 @@ export const ChatMessageList = ({ chatHistory, typing }: ChatMessageListProps) =
    return (
       <section
          id="chat-history"
-         className="container flex-grow mb-10 p-4 space-y-8 max-w-5xl max-h-screen">
+         className="container flex-grow mb-8 p-4 space-y-8 max-w-5xl max-h-screen">
          <div className="flex items-start w-full justify-center max-w-lg  text-center">
             <h4 className="text-lg font-bold text-gray-900 capitalize">Um titulo aqui</h4>
          </div>
@@ -41,7 +42,7 @@ export const ChatMessageList = ({ chatHistory, typing }: ChatMessageListProps) =
                         <input type="checkbox" name="inner_thoughts" />
                         <div className="collapse-title flex items-center px-4 text-sm">spoiler</div>
                         <div className="collapse-content">
-                           <Markdown>{"_" + content.inner_thoughts?.trimEnd() + "_"}</Markdown>
+                           <Markdown>{"_" + content.thoughts?.trimEnd() + "_"}</Markdown>
                         </div>
                      </div>
                   )}
@@ -55,7 +56,7 @@ export const ChatMessageList = ({ chatHistory, typing }: ChatMessageListProps) =
                </div>
             </div>
          )}
-         <div id="bottom-anchor" className="mt-6" />
+         <div id="bottom-anchor" />
       </section>
    );
 };

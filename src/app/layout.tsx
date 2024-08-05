@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "(A)Yae Miko | Roleplay Chat",
   description: "Miko Miko Miii",
   creator:"Pedro Braga Magalhães",
-  keywords: ["genshin", "genshin-impact", "gemini-pro", "yae-miko", "inazuma", "next", "react", "tailwind"]
+  keywords: ["genshin", "genshin-impact", "gemini-pro", "yae-miko", "inazuma", "next", "react", "tailwind", "python", "flask"]
 };
 
 export default function RootLayout({

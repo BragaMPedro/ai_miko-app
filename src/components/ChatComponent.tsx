@@ -1,3 +1,4 @@
+import { postMessage } from "@/app/api/chat/route";
 import { ChatConponentProps, ChatContentProps, ChatHistoryProps } from "@/types/chat";
 import { randomBytes } from "crypto";
 import { useState } from "react";
@@ -5,7 +6,7 @@ import { ChatHeader } from "./ChatHeader";
 import { ChatInput } from "./ChatInput";
 import { ChatMessageList } from "./ChatMessageList";
 
-export const ChatComponent = ({ model, chat, setShowModal }: ChatConponentProps) => {
+export const ChatComponent = ({ setShowModal }: ChatConponentProps) => {
    const [typing, setTyping] = useState<boolean>(false);
    const [message, setMessage] = useState("");
    const [chatHistory, setChatHistory] = useState<ChatHistoryProps[] | []>([]);
@@ -15,49 +16,34 @@ export const ChatComponent = ({ model, chat, setShowModal }: ChatConponentProps)
       return id;
    }
 
-   async function handleSubmit() {
-      const userMsg: ChatHistoryProps = { id: generateId(), role: "user", content: { text: message } };
-      setChatHistory([...chatHistory, userMsg]);
+   function limpaStates() {
+      setChatHistory([]);
+      setMessage("");
+   }
 
-      if (!chat) {
-         atualizaChatHistory(generateId(), "system", {
-            text: "Lamento, parece que há algo de errado com a configuração da sua Yae Miko\nTente configura-la novamente na janela de configurações",
-         });
-         console.error("Chat not Found");
-
-         return;
-      }
-
+   function handleSubmit() {
       setTyping(true);
-      const tokens = await getTokenCount();
-      console.log("tokenCount", tokens);
+      const userMsg: ChatHistoryProps = { id: generateId(), role: "user", content: { text: message } };
 
-      try {
-         const result = await chat.sendMessage(message);
-         const response = result.response.text();
+      postMessage(message)
+      .then(res=>{
+         const response = res.data
+         console.table(response);
 
-         let resObject: ChatContentProps;
-
-         try {
-            resObject = JSON.parse(response);
-         } catch (error) {
-            console.error(error, response);
-            resObject = { text: response };
-         }
-         console.table(resObject);
-
-
-         const resState: ChatHistoryProps = { id: generateId(), role: "model", content: resObject };
+         const resState: ChatHistoryProps = { id: generateId(), role: "model", content: response };
          setChatHistory([...chatHistory, userMsg, resState]);
-      } catch (error) {
+      })
+      .catch ((error) => {
          console.log(error);
+         
          atualizaChatHistory(generateId(), "system", {
             text: "Lamento, parece que há algo de errado.\nTente de novo mais tarde",
          });
-      } finally {
+      })
+      .finally(()=>{
          setTyping(false);
-      }
-   }
+      });
+   };
 
    function atualizaChatHistory(id: string, role: "user" | "model" | "system", content: ChatContentProps) {
       const newChat: ChatHistoryProps = {
@@ -69,19 +55,10 @@ export const ChatComponent = ({ model, chat, setShowModal }: ChatConponentProps)
       setChatHistory([...chatHistory, newChat]);
    }
 
-   async function getTokenCount() {
-      const history = await chat!.getHistory();
-      const msgContent = { role: "user", parts: [{ text: message }] };
-      const contents = [...history, msgContent];
-      const { totalTokens } = await model!.countTokens({ contents });
-
-      return totalTokens;
-   }
-
    return (
       <section
          id="chat-section"
-         className="flex flex-col items-center w-full overflow-y-auto scroll-smooth min-h-svh max-h-svh px-6 py-4 sm:px-10  sm:py-4">
+         className="flex flex-col items-center w-full overflow-y-auto scroll-smooth min-h-svh max-h-screen px-6 py-4 sm:px-10  sm:py-4 sm:pb-10">
          <ChatHeader setShowModal={setShowModal} />
          <ChatMessageList typing={typing} chatHistory={chatHistory} />
          <ChatInput message={message} setMessage={setMessage} loading={typing} submit={() => handleSubmit()} />

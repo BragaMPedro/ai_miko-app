@@ -7,7 +7,7 @@ export default function Home() {
    const [showModal, setShowModal] = useState<boolean>(true);
 
    return (
-      <main className=" bg-shrine-pink bg-cover bg-opacity-50 bg-no-repeat min-w-full max-h-full">
+      <main className="bg-shrine-pink bg-cover bg-center bg-no-repeat min-w-full max-h-full">
          <ModalConfig showModal={showModal} setShowModal={setShowModal} />
          <ChatComponent setShowModal={setShowModal}/>
       </main>

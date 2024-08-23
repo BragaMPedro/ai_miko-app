@@ -10,7 +10,7 @@ const config: Config = {
     extend: {
       
       backgroundImage: {
-        "shrine-pink": "url(../assets/img/bg-base.png)",
+        "shrine-pink": "url(../assets/img/bg-base_16-9.png)",
         "base-miko": "url(../assets/img/bg-miko.png)",
         "shogun-event": "url(../assets/img/bg-shogun.jpg)",
         "gradient-conic":

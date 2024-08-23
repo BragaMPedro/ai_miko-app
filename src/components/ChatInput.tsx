@@ -10,6 +10,8 @@ export const ChatInput = ({ message, setMessage, loading, submit }: ChatInputPro
    const disabled = message === "" || loading;
 
    const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+      console.log(e);
+      
       const input = e.target.value;
       setMessage(input);
    };
@@ -18,7 +20,7 @@ export const ChatInput = ({ message, setMessage, loading, submit }: ChatInputPro
       let currentHeight;
 
       if (message && message.match(/\n/g)?.length) {
-         currentHeight = message.match(/\n/g)!.length * 44;
+         currentHeight = (message.match(/\n/g)!.length) * 44;
 
          return currentHeight + "px";
       }
@@ -45,7 +47,7 @@ export const ChatInput = ({ message, setMessage, loading, submit }: ChatInputPro
                onChange={handleChange}
                style={{ height: inputHeightSetter() }}
                placeholder="Digite sua mensagem..."
-               className="grow w-full text-white bg-transparent h-10 resize-none max-h-32 transition-all focus:outline-none"
+               className="grow w-full text-white bg-transparent h-11 resize-none max-h-32 transition-all focus:outline-none"
             />
             <button
                type="button"

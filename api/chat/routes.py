@@ -9,7 +9,7 @@ from .services import enviar_mensagem
 
 app = Flask(__name__)
 cors = CORS(app)
-base_route = "/chat"
+base_route = "/api/chat"
 
 
 @app.get(base_route)

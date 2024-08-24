@@ -9,7 +9,23 @@ import { ChatMessageList } from "./ChatMessageList";
 export const ChatComponent = ({ setShowModal }: ChatConponentProps) => {
    const [typing, setTyping] = useState<boolean>(false);
    const [message, setMessage] = useState("");
-   const [chatHistory, setChatHistory] = useState<ChatHistoryProps[] | []>([]);
+   const [chatHistory, setChatHistory] = useState<ChatHistoryProps[] | []>([
+      {id: generateId(), role: "user", content:{text: "Loren Ipsum pipipi pópópó"}},
+      {id: generateId(), role: "model", content:{text: "Loren Ipsum pipipi pópópó", thoughts: "Loren Ipsum pipipi pópópó"}},
+      {id: generateId(), role: "user", content:{text: "Loren Ipsum pipipi pópópó"}},
+      {id: generateId(), role: "model", content:{text: "Loren Ipsum pipipi pópópó", thoughts: "Loren Ipsum pipipi pópópó"}},
+      {id: generateId(), role: "user", content:{text: "Loren Ipsum pipipi pópópó"}},
+      {id: generateId(), role: "model", content:{text: "Loren Ipsum pipipi pópópó", thoughts: "Loren Ipsum pipipi pópópó"}},
+      {id: generateId(), role: "user", content:{text: "Loren Ipsum pipipi pópópó"}},
+      {id: generateId(), role: "model", content:{text: "Loren Ipsum pipipi pópópó", thoughts: "Loren Ipsum pipipi pópópó"}},
+      {id: generateId(), role: "user", content:{text: "Loren Ipsum pipipi pópópó"}},
+      {id: generateId(), role: "model", content:{text: "Loren Ipsum pipipi pópópó", thoughts: "Loren Ipsum pipipi pópópó"}},
+      {id: generateId(), role: "user", content:{text: "Loren Ipsum pipipi pópópó"}},
+      {id: generateId(), role: "model", content:{text: "Loren Ipsum pipipi pópópó", thoughts: "Loren Ipsum pipipi pópópó"}},
+      {id: generateId(), role: "user", content:{text: "Loren Ipsum pipipi pópópó"}},
+      {id: generateId(), role: "model", content:{text: "Loren Ipsum pipipi pópópó", thoughts: "Loren Ipsum pipipi pópópó"}},
+      {id: generateId(), role: "user", content:{text: "Loren Ipsum pipipi pópópó"}},
+   ]);
 
    function generateId() {
       const id = randomBytes(20).toString("hex");

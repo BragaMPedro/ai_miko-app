@@ -17,16 +17,16 @@ def getEnv(env_name: str):
     try:
         env = os.getenv(env_name)
     except env.SecretNotFoundError as e:
-        print(f'Secret not found\n\nThis expects you to create a secret named {
-              env_name} contained in a .env file')
+        print(
+            f"Secret not found\n\nThis expects you to create a secret named {env_name} contained in a .env file")
         raise e
     except env.NotebookAccessError as e:
-        print(f'You need to grant this notebook access to the {env_name}')
+        print(f"You need to grant this notebook access to the {env_name}")
         raise e
     except Exception as e:
         # unknown error
-        print(f"There was an unknown error. Ensure you have a secret {
-              env_name} stored in .env and it's valid")
+        print(
+            f"There was an unknown error. Ensure you have a secret {env_name} stored in .env and it's valid")
         raise e
 
     return env

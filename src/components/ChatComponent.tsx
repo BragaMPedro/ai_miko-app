@@ -16,11 +16,6 @@ export const ChatComponent = ({ setShowModal }: ChatConponentProps) => {
       return id;
    }
 
-   function limpaStates() {
-      setChatHistory([]);
-      setMessage("");
-   }
-
    function handleSubmit() {
       setTyping(true);
       const userMsg: ChatHistoryProps = { id: generateId(), role: "user", content: { text: message } };

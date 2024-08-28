@@ -12,5 +12,5 @@ export const gemPy_api = axios.create({
 export function postMessage(message:string){
     const prompt = {prompt:message}
 
-    return gemPy_api.post<ChatContentProps>('/chat', prompt)
+    return gemPy_api.post<ChatContentProps>('/api/chat', prompt)
 };

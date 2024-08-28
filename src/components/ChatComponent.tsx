@@ -1,4 +1,4 @@
-import { postMessage } from "@/app/services/chat";
+import { postMessage } from "@/services/chat";
 import { ChatConponentProps, ChatContentProps, ChatHistoryProps } from "@/types/chat";
 import { randomBytes } from "crypto";
 import { useState } from "react";

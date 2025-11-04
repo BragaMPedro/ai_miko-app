@@ -28,29 +28,25 @@ O projeto foi construído com uma arquitetura dividida: uma interface frontend m
 
 ### Tecnologias Utilizadas
 
-A aplicação é um projeto Full Stack que combina as seguintes tecnologias:
-
 **Frontend:**
-* **Next.js** (v14.2.3)
+* **Next.js**
 * **React**
 * **TypeScript**
-* **Tailwind CSS** (v3.4.3)
-* **DaisyUI** (v4.11.1)
-* **`axios`** para comunicação com o backend
-* **`react-markdown`** para renderização de conteúdo formatado
+* **Tailwind CSS**
+* **DaisyUI**
+* **Axios**
+* **React-markdown**
 
 **Backend (API):**
 * **Python**
-* **Flask** (v3.0.3)
-* **Google GenAI SDK** (`google-generativeai` v0.7.2)
-* **`flask-cors`** para gerenciamento de requisições de origem cruzada
+* **Flask**
+* **Google GenAI SDK**
+* **Flask-cors**
 
 ## 2. Iniciando o Projeto
-
-Siga os passos abaixo para configurar e rodar o projeto localmente.
-
-### Pré-requisitos
-
+### Pré-requisitos:
+Software de desenvolvimento web (ex: Visual Studio Code, Sublime Text). Navegador web (ex: Chrome, Firefox, Safari).  
+Conhecimento de React, HTML, Tailwind, Javascript,  
 Você precisará ter instalado em sua máquina:
 * Node.js e npm
 * Python 3 e pip
@@ -64,7 +60,7 @@ Além disso, é necessário configurar as variáveis de ambiente em um arquivo `
 
 1.  Clone o repositório:
     ```bash
-    git clone [URL_DO_REPOSITÓRIO]
+    git clone https://github.com/BragaMPedro/ai_miko-app
     cd a-yae_miko-app
     ```
 
@@ -76,15 +72,13 @@ Além disso, é necessário configurar as variáveis de ambiente em um arquivo `
 3.  Instale as dependências do Backend (Python/Flask):
     ```bash
     pip3 install -r requirements.txt
-    # As dependências instaladas são: google-generativeai, flask, flask-cors, python-dotenv, google.ai.generativelanguage
     ```
 
 4.  Crie o arquivo `.env` e configure as variáveis de ambiente (conforme os Pré-requisitos).
 
-5.  Inicie a aplicação em modo de desenvolvimento (o comando usa `concurrently` para iniciar o frontend e o backend Flask simultaneamente):
+5.  Inicie a aplicação em modo de desenvolvimento. O comando usa `concurrently` para iniciar o frontend e o backend Flask simultaneamente, serão executados 'npm run next-dev' (next dev) e 'npm run flask-dev' (python -m flask --app api/index.py run -p 5328 --debug)
     ```bash
     npm run dev
-    # Isso executa 'npm run next-dev' (next dev) e 'npm run flask-dev' (python -m flask --app api/index.py run -p 5328 --debug)
     ```
     O frontend do Next.js será iniciado, e o backend Flask rodará na porta `5328`.
 
